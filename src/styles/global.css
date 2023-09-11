@@ -1,0 +1,118 @@
+html{
+  font-family: monospace;
+  background-color: rgb(160, 197, 230);
+}
+
+.socials{
+margin: 10px;}
+
+.hobby-box{
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 40px;
+  padding: 10px;
+  text-align: center;
+}
+
+.hobby-box img{
+width:80px;  
+height: auto;
+  padding: 10px;
+  display: block;
+  margin: auto;
+}
+
+.hamburger {
+  padding-right: 20px;
+  cursor: pointer;
+}
+
+.stand-cat {
+  margin-top: 10px;
+  width: 150px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 4cap;
+}
+
+.title-line {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-size: 50px;
+}
+
+.subtext{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.hamburger .line {
+  display: block;
+  width: 30px;
+  height: 5px;
+  margin-bottom: 8px;
+  background-color: black;
+}
+
+.nav-links {
+  right: 0;
+  width: 100%;
+  display: none;
+  margin: 0;
+}
+
+.nav-links a {
+  color: black;
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  background-color: rgb(63, 109, 164);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover, a:focus {
+  background-color: #ffffff;
+}
+
+.expanded {
+  display: unset;
+}
+
+footer{
+bottom: 0;
+position: static;
+
+}
+@media screen and (min-width: 636px) {
+  .nav-links {
+    display: block;
+    position: static;
+    width: auto;
+    background: none;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: 15px 20px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+}

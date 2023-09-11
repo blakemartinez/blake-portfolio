@@ -1,0 +1,28 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import Hobbies from '../components/Hobbies.astro';
+const {pageTitle} = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Header />
+    <img class="stand-cat" src="/stand-cat.jpeg" alt="stand cat">
+    <h1 class="title-line">Howdy, I'm {pageTitle}</h1>
+    <p class="subtext">Software Engineer @ Pinterest</p>
+    <Hobbies/>
+    <slot />
+    <Footer />
+    <script>
+      import "../scripts/menu.js";
+    </script>
+  </body>
+</html>
