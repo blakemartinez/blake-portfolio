@@ -86,6 +86,16 @@ height: auto;
   text-transform: uppercase;
 }
 
+.home-button {
+  border-radius: 10%;
+  margin: 5px;
+}
+
+.resume-button {
+  border-radius: 10%;
+  margin: 5px;
+}
+
 .nav-links a:hover, a:focus {
   background-color: #ffffff;
 }
