@@ -59,8 +59,6 @@ _Aug. 2019 - Dec 2022_
 
 * Minor in Cybersecurity
 
-* GPA: 3.784
-
 ---
 
 ## **Programming Skills**
