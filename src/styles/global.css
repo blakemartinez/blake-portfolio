@@ -1,14 +1,15 @@
 html{
   font-family: monospace;
-  background-color: rgb(160, 197, 230);
+  background-color: #b8a7aa;
 }
 
 .socials{
-margin: 10px;}
+margin: 5px;}
 
 .hobby-box{
   display: grid;
   grid-template-columns: auto;
+  justify-content: space-evenly;
   grid-gap: 40px;
   padding: 10px;
   text-align: center;
@@ -40,7 +41,7 @@ height: auto;
   margin-bottom: 4cap;
 }
 
-.title-line {
+/* .title-line {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -48,6 +49,42 @@ height: auto;
   margin-right: auto;
   display: block;
   font-size: 50px;
+  color: #ebe6ea;
+} */
+
+.title-line{
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  color: #ebe6ea;
+  text-align: center;
+  position: relative;
+  display: block;
+  /* top: 50%;   */
+  width: 24em;
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #48373d;
+  border-right: 1.5px solid #ebe6ea;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);    
+}
+
+/* Animation */
+.anim-typewriter{
+animation: typewriter 2s steps(40) 1s 1 normal both,
+           blinkTextCursor 500ms steps(40) infinite normal;
+}
+@keyframes typewriter{
+from{width: 0;}
+to{width: 10em;}
+}
+@keyframes blinkTextCursor{
+from{border-right-color: #ebe6ea;}
+to{border-right-color: transparent;}
 }
 
 .subtext{
@@ -56,7 +93,11 @@ height: auto;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 40px;
+  font-size: 14px;
+  font-weight: 500;
   display: block;
+  color: #48373d;
 }
 
 .hamburger .line {
@@ -64,7 +105,7 @@ height: auto;
   width: 30px;
   height: 5px;
   margin-bottom: 8px;
-  background-color: black;
+  background-color: #48373d;
 }
 
 .nav-links {
@@ -72,6 +113,7 @@ height: auto;
   width: 100%;
   display: none;
   margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -79,21 +121,20 @@ height: auto;
   display: block;
   text-align: center;
   padding: 10px 0;
-  background-color: rgb(63, 109, 164);
+  /* background-color: #ab989e; */
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 .home-button {
   border-radius: 10%;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .resume-button {
   border-radius: 10%;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .nav-links a:hover, a:focus {
@@ -106,7 +147,7 @@ height: auto;
 
 footer{
 bottom: 0;
-position: static;
+position: fixed;
 
 }
 @media screen and (min-width: 636px) {
@@ -119,7 +160,7 @@ position: static;
 
   .nav-links a {
     display: inline-block;
-    padding: 15px 20px;
+    padding: 8px 10px;
   }
 
   .hamburger {
