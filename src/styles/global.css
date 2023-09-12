@@ -1,6 +1,7 @@
 html{
   font-family: monospace;
   background-color: #b8a7aa;
+  background: linear-gradient(215deg, #cbb8ba, #706768);
 }
 
 .socials{
@@ -65,7 +66,7 @@ height: auto;
   margin: auto;
   margin-top: 70px;
   margin-bottom: 30px;
-  border-bottom: 2px solid #48373d;
+  /* border-bottom: .5px solid #48373d; */
   border-right: 1.5px solid #ebe6ea;
   text-align: center;
   white-space: nowrap;
@@ -147,7 +148,7 @@ to{border-right-color: transparent;}
 
 footer{
 bottom: 0;
-position: fixed;
+position: static;
 
 }
 @media screen and (min-width: 636px) {
