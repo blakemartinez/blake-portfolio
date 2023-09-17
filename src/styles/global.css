@@ -1,7 +1,7 @@
 html{
   font-family: monospace;
   background-color: #b8a7aa;
-  background: linear-gradient(215deg, #cbb8ba, #706768);
+  /* background: linear-gradient(215deg, #cbb8ba, #706768); */
 }
 
 .socials{
@@ -22,6 +22,24 @@ height: auto;
   padding: 10px;
   display: block;
   margin: auto;
+}
+
+.keebs-grid{
+  display: flex;
+  /* grid-template-columns: auto; */
+  justify-content: space-evenly;
+  /* grid-gap: 40px; */
+  padding: 10px;
+  text-align: center;
+  background-color: #ebe6ea;
+}
+
+.kb-entry iframe{
+    padding: 10px;
+    border-radius: 3%;
+    display: block;
+    margin: auto;
+    border: 1px solid #48373d ;
 }
 
 .hamburger {
