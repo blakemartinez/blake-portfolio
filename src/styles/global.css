@@ -164,9 +164,15 @@ to{border-right-color: transparent;}
   display: unset;
 }
 
+model-viewer{
+  width:50%;
+  height:500px;
+  align-items: center;
+}
+
 footer{
 bottom: 0;
-position: static;
+position: fixed;
 
 }
 @media screen and (min-width: 636px) {

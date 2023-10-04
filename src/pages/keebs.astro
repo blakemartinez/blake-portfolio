@@ -21,7 +21,11 @@ import "../styles/global.css"
   <body>
     <Header/>
 <!-- <MyKeebs> -->
-  <model-viewer src="../keebRender.gltf" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1" auto-rotate> </model-viewer>
+  <div style="align-items: center; text-align: center; ">
+
+    <model-viewer       style="width: 100%; height: 500px; top: 0px;"
+    src="../keebRender.gltf" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" camera-orbit="-90.41deg 61.51deg 0.8191m" field-of-view="30deg" shadow-intensity="1" auto-rotate> </model-viewer>
+  </div>
       <Footer />
     <script>
       import "../scripts/menu.js";
