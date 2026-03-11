@@ -1,0 +1,48 @@
+---
+import Parser from 'rss-parser';
+import { SUBSTACK_URL } from '../consts';
+
+interface FeedItem {
+  title?: string;
+  link?: string;
+  pubDate?: string;
+  contentSnippet?: string;
+}
+
+let items: FeedItem[] = [];
+let fetchFailed = false;
+
+try {
+  const parser = new Parser();
+  const feed = await parser.parseURL(`${SUBSTACK_URL}/feed`);
+  items = feed.items.slice(0, 3);
+} catch {
+  fetchFailed = true;
+}
+---
+{fetchFailed || items.length === 0 ? (
+  <p style="color: var(--text-muted); font-size: 0.85rem;">
+    <a href={SUBSTACK_URL} target="_blank" rel="noopener">View all posts on Substack ↗</a>
+  </p>
+) : (
+  <ul class="post-list">
+    {items.map((item) => (
+      <li class="post-card">
+        <p class="post-card-title">{item.title}</p>
+        {item.pubDate && (
+          <p class="post-card-meta">
+            {new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        )}
+        {item.contentSnippet && (
+          <p class="post-card-excerpt">
+            {item.contentSnippet.slice(0, 160)}{item.contentSnippet.length > 160 ? '…' : ''}
+          </p>
+        )}
+        {item.link && (
+          <a class="post-card-link" href={item.link} target="_blank" rel="noopener">Read on Substack ↗</a>
+        )}
+      </li>
+    ))}
+  </ul>
+)}

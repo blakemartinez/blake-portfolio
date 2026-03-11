@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects';
+---
+<BaseLayout title="projects — blake martinez" description="Side projects and experiments by Blake Martinez.">
+  <h1 class="section-label">projects</h1>
+  <ul class="project-list">
+    {projects.map((project) => (
+      <li class="project-card">
+        <div class="project-info">
+          <p class="project-name">{project.name}</p>
+          <p class="project-desc">{project.desc}</p>
+          <div class="stack-badges">
+            {project.stack.map((tech) => (
+              <span class="badge">{tech}</span>
+            ))}
+          </div>
+        </div>
+        {project.url ? (
+          <a class="project-link" href={project.url} target="_blank" rel="noopener">view ↗</a>
+        ) : (
+          <span class="project-link" style="color: var(--text-muted);">wip</span>
+        )}
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
