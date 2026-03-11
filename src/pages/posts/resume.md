@@ -71,8 +71,6 @@ _Aug. 2019 - Dec 2022_
 
 ## **Projects**
 
-* [StudyPy](https://studypyapp.herokuapp.com/): Utilized Python and Spotify’s API to create a program that can take user inputted values such as energy in order to tailor a spotify playlist speciﬁcally based on the values given. Along the custom playlist, the user can also create a study session that allows multiple customizations such as: listing tasks, time of session, and checking oﬀ completed tasks.
-
 * PEAP: (_WIP_) Passion project/application where users can login to their Spotify and see their listening statistics. Not only this, but create custom playlists using different artists/songs to base the playlists on.
 
 * [readME](https://blakemartinez.github.io/readME/): Website I made to track my reading progress for the year + my ratings :)

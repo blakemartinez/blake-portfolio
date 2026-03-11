@@ -2,13 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { projects } from '../data/projects';
 ---
-<BaseLayout title="projects — blake martinez" description="Side projects and experiments by Blake Martinez.">
-  <h1 class="section-label">projects</h1>
+<BaseLayout pageTitle="projects — blake martinez" description="Blake Martinez's side projects">
+  <h2 class="section-label">projects</h2>
   <ul class="project-list">
     {projects.map((project) => (
       <li class="project-card">
         <div class="project-info">
-          <p class="project-name">{project.name}</p>
+          <p class="project-name">
+            {project.name}
+            {project.favorite && <span class="fav-star" title="current passion project">★</span>}
+          </p>
           <p class="project-desc">{project.desc}</p>
           <div class="stack-badges">
             {project.stack.map((tech) => (
@@ -16,11 +19,17 @@ import { projects } from '../data/projects';
             ))}
           </div>
         </div>
-        {project.url ? (
-          <a class="project-link" href={project.url} target="_blank" rel="noopener">view ↗</a>
-        ) : (
-          <span class="project-link" style="color: var(--text-muted);">wip</span>
-        )}
+        <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+          {project.url && (
+            <a class="project-link" href={project.url} target="_blank" rel="noopener">live ↗</a>
+          )}
+          {project.githubUrl && (
+            <a class="project-link" href={project.githubUrl} target="_blank" rel="noopener">github ↗</a>
+          )}
+          {!project.url && !project.githubUrl && (
+            <span class="project-link" style="color: var(--text-muted);">wip</span>
+          )}
+        </div>
       </li>
     ))}
   </ul>
