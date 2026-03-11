@@ -17,7 +17,7 @@ No test suite or linter is configured.
 Always include this co-author trailer in commit messages:
 
 ```
-Co-Authored-By: Blake's Claude Minion <noreply@anthropic.com>
+Co-Authored-By: Blake's Claude Minion <blakes-claude-minion@noreply.local>
 ```
 
 Before committing to `main`, perform a staff engineer code review: check for correctness, style consistency with the existing codebase, and any obvious bugs or issues, then fix anything found before committing.
