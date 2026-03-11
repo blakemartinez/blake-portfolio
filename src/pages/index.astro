@@ -1,15 +1,125 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hobbies from '../components/Hobbies.astro';
+import MarqueeTech from '../components/MarqueeTech.astro';
+import MarqueeInterests from '../components/MarqueeInterests.astro';
+import Parser from 'rss-parser';
+import { SUBSTACK_URL, CURRENT_READS } from '../consts';
+import { projects } from '../data/projects';
+
+let latestPost = "";
+let latestPostUrl = "";
+try {
+  const parser = new Parser();
+  const feed = await parser.parseURL(`${SUBSTACK_URL}/feed`);
+  latestPost = feed.items[0]?.title ?? "";
+  latestPostUrl = feed.items[0]?.link ?? "";
+} catch {
+  latestPost = "";
+}
+
+const featuredProject = projects.find((p) => p.favorite)!;
+const featuredProjectName = featuredProject?.name ?? projects[0].name;
+const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ?? "";
 ---
 <BaseLayout pageTitle="blake martinez">
   <section class="hero">
-    <h1 class="hero-name anim-typewriter">blake martinez</h1>
-    <p class="hero-role">software engineer @ pinterest</p>
+    <div class="hero-text">
+      <h1 class="hero-name" id="hero-name"></h1>
+      <p class="hero-role">software engineer @ pinterest</p>
+
+      <div class="hero-lines">
+        <p class="hero-line">
+          <span class="hero-verb building">building</span>
+          <span class="hero-line-subject" id="line-building"></span>
+          <span class="hero-line-cursor" id="cursor-building">|</span>
+        </p>
+        <p class="hero-line">
+          <span class="hero-verb reading">reading</span>
+          <span class="hero-line-subject" id="line-reading"></span>
+          <span class="hero-line-cursor" id="cursor-reading">|</span>
+        </p>
+        <p class="hero-line">
+          <span class="hero-verb writing">writing</span>
+          <span class="hero-line-subject" id="line-writing"></span>
+          <span class="hero-line-cursor" id="cursor-writing">|</span>
+        </p>
+        <p class="hero-line">
+          <span class="hero-verb playing">playing</span>
+          <span class="hero-line-subject" id="line-playing"></span>
+          <span class="hero-line-cursor" id="cursor-playing">|</span>
+        </p>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="/blake-dog-sun.jpg" alt="blake" />
+      <img class="hero-photo hero-photo-alt" src="/cooked-dog.webp" alt="cooked dog" aria-hidden="true" />
+    </div>
   </section>
 
-  <section>
-    <p class="section-label">interests</p>
-    <Hobbies />
-  </section>
+  <MarqueeTech />
+  <MarqueeInterests />
 </BaseLayout>
+
+<script define:vars={{ featuredProjectName, featuredProjectUrl, reads: CURRENT_READS, latestPost, latestPostUrl }}>
+  const wrap = document.querySelector('.hero-photo-wrap');
+  wrap?.addEventListener('click', () => wrap.classList.toggle('cooked'));
+
+  const TYPE_SPEED = 70;
+
+  function typeInto(elId, cursorId, text, url, onDone) {
+    const el = document.getElementById(elId);
+    const cursor = document.getElementById(cursorId);
+    let i = 0;
+    cursor.style.opacity = '1';
+    function step() {
+      el.textContent = text.slice(0, i + 1);
+      i++;
+      if (i < text.length) {
+        setTimeout(step, TYPE_SPEED);
+      } else {
+        cursor.style.opacity = '0';
+        if (url) {
+          el.classList.add('hero-subject-link');
+          el.addEventListener('click', () => window.open(url, '_blank'));
+        }
+        onDone?.();
+      }
+    }
+    step();
+  }
+
+  function startLines() {
+    typeInto('line-building', 'cursor-building', featuredProjectName, featuredProjectUrl, () => {
+      setTimeout(() => {
+        typeInto('line-reading', 'cursor-reading', reads[0] ?? '', 'https://readme-list.vercel.app/', () => {
+          setTimeout(() => {
+            typeInto('line-writing', 'cursor-writing', latestPost, latestPostUrl, () => {
+              setTimeout(() => {
+                typeInto('line-playing', 'cursor-playing', 'League of Legends, WoW & Rocket League', '', null);
+              }, 200);
+            });
+          }, 200);
+        });
+      }, 200);
+    });
+  }
+
+  // name typewriter — JS-driven so font-load timing can't cut off the text
+  const nameEl = document.getElementById('hero-name');
+  const NAME = 'blake martinez';
+  let nameChar = 0;
+  nameEl.style.borderRightColor = 'var(--text)';
+  nameEl.classList.add('hero-name-cursor');
+
+  function typeName() {
+    nameEl.textContent = NAME.slice(0, nameChar + 1);
+    nameChar++;
+    if (nameChar < NAME.length) {
+      setTimeout(typeName, TYPE_SPEED);
+    } else {
+      setTimeout(startLines, 400);
+    }
+  }
+
+  document.fonts.ready.then(() => setTimeout(typeName, 300));
+</script>
