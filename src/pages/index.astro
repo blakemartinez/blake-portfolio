@@ -43,11 +43,6 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
           <span class="hero-line-subject" id="line-writing"></span>
           <span class="hero-line-cursor" id="cursor-writing">|</span>
         </p>
-        <p class="hero-line">
-          <span class="hero-verb playing">playing</span>
-          <span class="hero-line-subject" id="line-playing"></span>
-          <span class="hero-line-cursor" id="cursor-playing">|</span>
-        </p>
       </div>
     </div>
     <div class="hero-photo-wrap">
@@ -93,11 +88,7 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
       setTimeout(() => {
         typeInto('line-reading', 'cursor-reading', reads[0] ?? '', 'https://readme-list.vercel.app/', () => {
           setTimeout(() => {
-            typeInto('line-writing', 'cursor-writing', latestPost, latestPostUrl, () => {
-              setTimeout(() => {
-                typeInto('line-playing', 'cursor-playing', 'League of Legends, WoW & Rocket League', '', null);
-              }, 200);
-            });
+            typeInto('line-writing', 'cursor-writing', latestPost, latestPostUrl, null);
           }, 200);
         });
       }, 200);
