@@ -1,0 +1,87 @@
+---
+const items = [
+  {
+    label: "claude",
+    tip: "Messing with Claude Code setups, building side projects with the API, and exploring hooks, loops, and new features as they continuously evolve.",
+  },
+  {
+    label: "ai agents",
+    tip: "Working on developer experience agents — tooling that makes the dev workflow smarter and more autonomous.",
+  },
+  {
+    label: "llms",
+    tip: "Learning how large language models work under the hood — prompt engineering, model behavior, and how to build reliably on top of them.",
+  },
+  {
+    label: "embeddings & clustering",
+    tip: "Building clustering visualizations for record-map using UMAP for dimensionality reduction, Transformers for embeddings, and Louvain community detection.",
+  },
+];
+---
+<div class="marquee-wrap">
+  <span class="marquee-label marquee-label-left">exploring →</span>
+  <div class="marquee-track">
+    {[...items, ...items].map((item) => (
+      <span class="marquee-item marquee-item-tip" data-tip={item.tip}>
+        {item.label}<span class="marquee-sep">✦</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<div id="marquee-tooltip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+  const tooltip = document.getElementById('marquee-tooltip');
+  let activeItem: Element | null = null;
+
+  function show(el: Element) {
+    const tip = (el as HTMLElement).dataset.tip;
+    if (!tip || !tooltip) return;
+    tooltip.textContent = tip;
+    tooltip.classList.add('visible');
+    position(el);
+    activeItem = el;
+  }
+
+  function hide() {
+    tooltip?.classList.remove('visible');
+    activeItem = null;
+  }
+
+  function position(el: Element) {
+    if (!tooltip) return;
+    const rect = el.getBoundingClientRect();
+    const tipW = tooltip.offsetWidth;
+    const margin = 10;
+
+    let left = rect.left + rect.width / 2 - tipW / 2;
+    // clamp to viewport
+    left = Math.max(margin, Math.min(left, window.innerWidth - tipW - margin));
+
+    const spaceAbove = rect.top;
+    const above = spaceAbove > 80;
+    const top = above
+      ? rect.top - tooltip.offsetHeight - 10
+      : rect.bottom + 10;
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+    tooltip.dataset.pos = above ? 'above' : 'below';
+  }
+
+  document.querySelectorAll('.marquee-item-tip').forEach((el) => {
+    // Desktop: hover
+    el.addEventListener('mouseenter', () => show(el));
+    el.addEventListener('mouseleave', () => hide());
+
+    // Mobile: tap to toggle
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (activeItem === el) { hide(); } else { show(el); }
+    });
+  });
+
+  // Tap outside to dismiss on mobile
+  document.addEventListener('click', () => hide());
+</script>

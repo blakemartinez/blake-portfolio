@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MarqueeTech from '../components/MarqueeTech.astro';
+import MarqueeExploring from '../components/MarqueeExploring.astro';
 import MarqueeInterests from '../components/MarqueeInterests.astro';
 import Parser from 'rss-parser';
 import { SUBSTACK_URL, CURRENT_READS } from '../consts';
@@ -22,7 +23,113 @@ const featuredProjectName = featuredProject?.name ?? projects[0].name;
 const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ?? "";
 ---
 <BaseLayout pageTitle="blake martinez">
-  <section class="hero">
+  <div id="keycap-intro" aria-hidden="true">
+    <div class="kb-display">
+      <span id="kb-typed"></span><span class="kb-cursor">|</span>
+    </div>
+    <div class="kb-case">
+      <div class="kb-plate">
+        <!-- Row 1 -->
+        <div class="kb-row">
+          <span class="key" data-key="backtick">esc</span>
+          <span class="key" data-key="1">1</span>
+          <span class="key" data-key="2">2</span>
+          <span class="key" data-key="3">3</span>
+          <span class="key" data-key="4">4</span>
+          <span class="key" data-key="5">5</span>
+          <span class="key" data-key="6">6</span>
+          <span class="key" data-key="7">7</span>
+          <span class="key" data-key="8">8</span>
+          <span class="key" data-key="9">9</span>
+          <span class="key" data-key="0">0</span>
+          <span class="key" data-key="minus">−</span>
+          <span class="key" data-key="equal">=</span>
+          <span class="key key-u2" data-key="backspace">⌫</span>
+          <span class="key key-nav" data-key="del">del</span>
+        </div>
+        <!-- Row 2 -->
+        <div class="kb-row">
+          <span class="key key-u15" data-key="tab">tab</span>
+          <span class="key" data-key="q">q</span>
+          <span class="key" data-key="w">w</span>
+          <span class="key" data-key="e">e</span>
+          <span class="key" data-key="r">r</span>
+          <span class="key" data-key="t">t</span>
+          <span class="key" data-key="y">y</span>
+          <span class="key" data-key="u">u</span>
+          <span class="key" data-key="i">i</span>
+          <span class="key" data-key="o">o</span>
+          <span class="key" data-key="p">p</span>
+          <span class="key" data-key="lbracket">[</span>
+          <span class="key" data-key="rbracket">]</span>
+          <span class="key key-u15" data-key="backslash">\</span>
+          <span class="key key-nav" data-key="pgup">pgup</span>
+        </div>
+        <!-- Row 3 -->
+        <div class="kb-row">
+          <span class="key key-u175" data-key="caps">caps</span>
+          <span class="key" data-key="a">a</span>
+          <span class="key" data-key="s">s</span>
+          <span class="key" data-key="d">d</span>
+          <span class="key" data-key="f">f</span>
+          <span class="key" data-key="g">g</span>
+          <span class="key" data-key="h">h</span>
+          <span class="key" data-key="j">j</span>
+          <span class="key" data-key="k">k</span>
+          <span class="key" data-key="l">l</span>
+          <span class="key" data-key="semicolon">;</span>
+          <span class="key" data-key="quote">'</span>
+          <span class="key key-u225" data-key="enter">↵</span>
+          <span class="key key-nav" data-key="pgdn">pgdn</span>
+        </div>
+        <!-- Row 4 -->
+        <div class="kb-row">
+          <span class="key key-u225" data-key="lshift">shift</span>
+          <span class="key" data-key="z">z</span>
+          <span class="key" data-key="x">x</span>
+          <span class="key" data-key="c">c</span>
+          <span class="key" data-key="v">v</span>
+          <span class="key" data-key="b">b</span>
+          <span class="key" data-key="n">n</span>
+          <span class="key" data-key="m">m</span>
+          <span class="key" data-key="comma">,</span>
+          <span class="key" data-key="period">.</span>
+          <span class="key" data-key="slash">/</span>
+          <span class="key key-u175" data-key="rshift">shift</span>
+          <span class="key key-nav" data-key="up">↑</span>
+        </div>
+        <!-- Row 5: space row -->
+        <div class="kb-row kb-row-space">
+          <span class="key key-mod-sm" data-key="fn">fn</span>
+          <span class="key key-mod-sm" data-key="lctrl">ctrl</span>
+          <span class="key key-mod-sm" data-key="win">
+            <svg viewBox="0 0 10 10" width="9" height="9" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,1.2 L4.6,0.5 L4.6,4.8 L0,4.5Z" fill="#f25022"/>
+              <path d="M5.1,0.4 L10,0 L10,4.5 L5.1,4.7Z" fill="#7fba00"/>
+              <path d="M0,5.5 L4.6,5.2 L4.6,9.5 L0,9Z" fill="#00a4ef"/>
+              <path d="M5.1,5.3 L10,5.5 L10,10 L5.1,9.6Z" fill="#ffb900"/>
+            </svg>
+          </span>
+          <span class="key key-mod-sm" data-key="lalt">alt</span>
+          <span class="key key-usp" data-key="space"></span>
+          <span class="key key-mod-sm" data-key="ralt">alt</span>
+          <span class="key key-mod-sm" data-key="rctrl">ctrl</span>
+          <span class="key key-nav" data-key="left">←</span>
+          <span class="key key-nav" data-key="down">↓</span>
+          <span class="key key-nav" data-key="right">→</span>
+        </div>
+      </div>
+    </div>
+    <p class="kb-hint" id="kb-hint">press enter</p>
+  </div>
+
+  <section class="hero"
+    data-project-name={featuredProjectName}
+    data-project-url={featuredProjectUrl}
+    data-read={CURRENT_READS[0] ?? ''}
+    data-post={latestPost}
+    data-post-url={latestPostUrl}
+  >
     <div class="hero-text">
       <h1 class="hero-name" id="hero-name"></h1>
       <p class="hero-role">software engineer @ pinterest</p>
@@ -44,6 +151,13 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
           <span class="hero-line-cursor" id="cursor-writing">|</span>
         </p>
       </div>
+
+      <p class="hero-location">
+        <svg class="tx-outline" viewBox="0 0 200 162" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M73.7,0 L101.3,0 L101.3,29.6 L102.5,29.4 L105.9,32.3 L107.7,31.8 L112.6,32 L113.7,34.9 L116.7,34.8 L120.1,36.1 L123.1,35.9 L124.3,37.2 L126.3,35.8 L129.2,36.4 L130.4,38.1 L132.6,38.4 L133.8,40.5 L136.5,38.5 L140,39.6 L141.4,40.9 L143.1,40.3 L144.4,42.2 L148.2,38.8 L149.3,40.5 L152.7,40.5 L155.8,41.6 L157,43 L160,40.6 L163.3,39.9 L164.8,40.7 L168.4,39.2 L169.2,40 L173.1,40.1 L174.1,38.8 L178,40.3 L179.5,42 L185.4,43.7 L187,45.1 L190,44.4 L192.2,45.1 L192.2,53.2 L192.2,68.8 L195.5,72.1 L195.6,75.5 L199.7,81.7 L200,84.9 L198.4,88.9 L196.9,90.4 L197.4,92.5 L196.3,94.1 L197.5,97 L193.9,102.5 L195.2,104 L192.7,104.1 L184.8,106.2 L182,105 L181.5,102.5 L179.5,104.2 L178,103.8 L177.3,106 L178.9,106.9 L179.1,109.8 L176.3,112.8 L171.7,116.5 L162.5,120.5 L161.6,119.9 L158.8,120.9 L158.7,120 L155,120.6 L153.2,118.7 L152.2,119.1 L156.2,123 L153.2,124.3 L150.5,123.5 L150.1,126.3 L146.6,129.1 L143.1,134.4 L140.9,139.9 L139.2,139.5 L138.8,141.5 L140.5,141 L139.7,145 L138.5,145.2 L138.5,147.5 L139.9,148.7 L140.3,153.3 L142,154.9 L142.4,157.8 L143.7,160.4 L139,162 L137.1,160 L133.5,159.2 L128.8,159.4 L124.7,156.9 L121.6,156.7 L119.2,154.6 L116.1,154 L113.9,152.1 L112.5,147.5 L109.7,144.7 L110.1,142.4 L108.8,139.8 L109.2,137.7 L107.3,135.3 L105.7,135 L103.1,132.8 L102.3,130.1 L100,127.6 L96.8,125.5 L95.2,120.9 L93.7,119.6 L91.7,115.9 L91,112.9 L89.1,110.8 L85.8,108.8 L85.1,107.5 L82.1,106.3 L79.7,103 L73.1,102.2 L69.1,102.4 L65.6,101.2 L64.9,102.8 L61.2,103.3 L58.5,106.5 L56.8,111.6 L55.9,111.7 L53.8,114.7 L51.3,114.8 L47.5,112.4 L38.1,108.7 L36.2,106.7 L32.6,104.7 L30,100.4 L29.8,96.5 L27.2,93.3 L26.6,90.5 L25,88.8 L19,86.2 L15.9,82.7 L13.3,81.4 L10.5,78.4 L6.7,76.8 L4,72.8 L1.8,72 L0,70.2 L0.4,68.7 L54.5,68.7 L54.5,53.4 L54.9,38 L54.9,0 L55.5,0 Z" />
+        </svg>
+        dallas, tx
+      </p>
     </div>
     <div class="hero-photo-wrap">
       <img class="hero-photo" src="/blake-dog-sun.jpg" alt="blake" />
@@ -52,65 +166,178 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
   </section>
 
   <MarqueeTech />
+  <MarqueeExploring />
   <MarqueeInterests />
 </BaseLayout>
 
-<script define:vars={{ featuredProjectName, featuredProjectUrl, reads: CURRENT_READS, latestPost, latestPostUrl }}>
-  const wrap = document.querySelector('.hero-photo-wrap');
-  wrap?.addEventListener('click', () => wrap.classList.toggle('cooked'));
+<script>
+  document.querySelector('.hero-photo-wrap')
+    ?.addEventListener('click', (e) => (e.currentTarget as HTMLElement).classList.toggle('cooked'));
+</script>
 
-  const TYPE_SPEED = 70;
+<script>
+  import { gsap } from 'gsap';
+  import { TextPlugin } from 'gsap/TextPlugin';
+  gsap.registerPlugin(TextPlugin);
 
-  function typeInto(elId, cursorId, text, url, onDone) {
+  const CHAR_SPEED = 0.04;
+  const NAME = 'blake martinez';
+
+  // Hide hero elements immediately to prevent flash
+  gsap.set('.hero-role',       { opacity: 0, y: 8 });
+  gsap.set('.hero-verb',       { opacity: 0, y: 6 });
+  gsap.set('.hero-photo-wrap', { opacity: 0, y: 15 });
+  gsap.set('.hero-location',   { opacity: 0 });
+
+  function makeClickable(elId, url) {
+    if (!url) return;
     const el = document.getElementById(elId);
-    const cursor = document.getElementById(cursorId);
-    let i = 0;
-    cursor.style.opacity = '1';
-    function step() {
-      el.textContent = text.slice(0, i + 1);
-      i++;
-      if (i < text.length) {
-        setTimeout(step, TYPE_SPEED);
-      } else {
-        cursor.style.opacity = '0';
-        if (url) {
-          el.classList.add('hero-subject-link');
-          el.addEventListener('click', () => window.open(url, '_blank'));
-        }
-        onDone?.();
-      }
-    }
-    step();
+    el?.classList.add('hero-subject-link');
+    el?.addEventListener('click', () => window.open(url, '_blank'));
   }
 
-  function startLines() {
-    typeInto('line-building', 'cursor-building', featuredProjectName, featuredProjectUrl, () => {
-      setTimeout(() => {
-        typeInto('line-reading', 'cursor-reading', reads[0] ?? '', 'https://readme-list.vercel.app/', () => {
-          setTimeout(() => {
-            typeInto('line-writing', 'cursor-writing', latestPost, latestPostUrl, null);
-          }, 200);
+  function startHero() {
+    const hero        = document.querySelector('.hero');
+    const projectName = hero?.dataset.projectName ?? '';
+    const projectUrl  = hero?.dataset.projectUrl  ?? '';
+    const read        = hero?.dataset.read        ?? '';
+    const post        = hero?.dataset.post        ?? '';
+    const postUrl     = hero?.dataset.postUrl     ?? '';
+
+    const nameEl = document.getElementById('hero-name');
+    nameEl?.classList.add('hero-name-cursor');
+
+    // Build one inline-block span per character for the keycap bounce
+    NAME.split('').forEach((char) => {
+      if (char === ' ') {
+        nameEl?.appendChild(document.createTextNode('\u00a0'));
+      } else {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.display = 'inline-block';
+        gsap.set(span, { opacity: 0, y: -6, scaleY: 0.5 });
+        nameEl?.appendChild(span);
+      }
+    });
+
+    const charSpans = Array.from(nameEl?.querySelectorAll('span') ?? []);
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    tl.to(charSpans, {
+      opacity: 1, y: 0, scaleY: 1,
+      duration: 0.18, ease: 'back.out(3)', stagger: 0.11,
+    })
+    .call(() => nameEl?.classList.remove('hero-name-cursor'))
+    .to('.hero-role',       { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, '+=0.15')
+    .to('.hero-photo-wrap', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '<')
+    .to('.hero-verb.building', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, '+=0.3')
+    .set('#cursor-building', { opacity: 1 })
+    .to('#line-building', {
+      duration: Math.max(projectName.length * CHAR_SPEED, 0.05),
+      text: projectName, ease: 'none',
+      onComplete: () => makeClickable('line-building', projectUrl),
+    })
+    .set('#cursor-building', { opacity: 0 })
+    .to('.hero-verb.reading', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, '+=0.2')
+    .set('#cursor-reading', { opacity: 1 })
+    .to('#line-reading', {
+      duration: Math.max(read.length * CHAR_SPEED, 0.05),
+      text: read, ease: 'none',
+      onComplete: () => makeClickable('line-reading', 'https://readme-list.vercel.app/'),
+    })
+    .set('#cursor-reading', { opacity: 0 })
+    .to('.hero-verb.writing', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, '+=0.2')
+    .set('#cursor-writing', { opacity: 1 })
+    .to('#line-writing', {
+      duration: Math.max(post.length * CHAR_SPEED, 0.05),
+      text: post, ease: 'none',
+      onComplete: () => makeClickable('line-writing', postUrl),
+    })
+    .set('#cursor-writing', { opacity: 0 })
+    .to('.hero-location', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '+=0.2');
+  }
+
+  function runIntro() {
+    const intro    = document.getElementById('keycap-intro');
+    const board    = intro?.querySelector('.kb-plate');
+    const display  = document.getElementById('kb-typed');
+    const hintEl   = document.getElementById('kb-hint');
+    if (!intro || !board) { startHero(); return; }
+
+    const seq = ['b','l','a','k','e','m','a','r','t','i','n','e','z','period','d','e','v'];
+
+    const kbCase = intro.querySelector('.kb-case');
+    gsap.set(kbCase, { opacity: 0, y: 20 });
+    gsap.set(hintEl, { opacity: 0 });
+
+    function exitIntro() {
+      gsap.to(intro, {
+        opacity: 0, y: -20, duration: 0.5, ease: 'power2.in',
+        onComplete: () => { intro.style.display = 'none'; startHero(); },
+      });
+    }
+
+    function waitForEnter() {
+      const enterKey = board.querySelector('[data-key="enter"]');
+
+      // Pulse the enter key
+      const pulse = gsap.to(enterKey, {
+        boxShadow: '0 0 18px rgba(181,212,172,0.55)',
+        duration: 0.7, yoyo: true, repeat: -1, ease: 'sine.inOut',
+      });
+
+      // Fade in hint
+      gsap.to(hintEl, { opacity: 1, duration: 0.4 });
+
+      function trigger() {
+        pulse.kill();
+        gsap.set(enterKey, { boxShadow: 'none' });
+        document.removeEventListener('keydown', onKey);
+        enterKey?.removeEventListener('click', trigger);
+
+        // Press the enter key visually, then exit
+        enterKey?.classList.add('key-active');
+        gsap.delayedCall(0.18, () => {
+          enterKey?.classList.remove('key-active');
+          gsap.delayedCall(0.15, exitIntro);
         });
-      }, 200);
+      }
+
+      function onKey(e: KeyboardEvent) {
+        if (e.key === 'Enter') trigger();
+      }
+
+      document.addEventListener('keydown', onKey);
+      enterKey?.addEventListener('click', trigger);
+    }
+
+    // Fade board in, then run key sequence
+    gsap.to(kbCase, {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.2,
+      onComplete: () => {
+        seq.forEach((key, i) => {
+          gsap.delayedCall(0.3 + i * 0.13, () => {
+            const el = board.querySelector(`[data-key="${key}"]`);
+            if (el) {
+              el.classList.add('key-active');
+              gsap.delayedCall(0.18, () => el.classList.remove('key-active'));
+            }
+            if (display) display.textContent += key === 'space' ? ' ' : key === 'period' ? '.' : key;
+            if (i === seq.length - 1) gsap.delayedCall(0.3, waitForEnter);
+          });
+        });
+      },
     });
   }
 
-  // name typewriter — JS-driven so font-load timing can't cut off the text
-  const nameEl = document.getElementById('hero-name');
-  const NAME = 'blake martinez';
-  let nameChar = 0;
-  nameEl.style.borderRightColor = 'var(--text)';
-  nameEl.classList.add('hero-name-cursor');
-
-  function typeName() {
-    nameEl.textContent = NAME.slice(0, nameChar + 1);
-    nameChar++;
-    if (nameChar < NAME.length) {
-      setTimeout(typeName, TYPE_SPEED);
+  document.fonts.ready.then(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) {
+      const intro = document.getElementById('keycap-intro');
+      if (intro) intro.style.display = 'none';
+      startHero();
     } else {
-      setTimeout(startLines, 400);
+      runIntro();
     }
-  }
-
-  document.fonts.ready.then(() => setTimeout(typeName, 300));
+  });
 </script>

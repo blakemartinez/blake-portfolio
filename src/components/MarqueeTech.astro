@@ -1,15 +1,88 @@
 ---
 const tech = [
-  "python", "java", "typescript", "javascript", "scala", "sql",
-  "react", "next.js", "astro", "node.js", "d3.js", "django", "flask",
-  "tailwind css", "prisma", "claude", "ai agents", "llms",
+  { label: "python", slug: "python" },
+  { label: "java", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", tinted: true },
+  { label: "typescript", slug: "typescript" },
+  { label: "javascript", slug: "javascript" },
+  { label: "scala", slug: "scala" },
+  { label: "sql", slug: "postgresql" },
+  { label: "react", slug: "react" },
+  { label: "next.js", slug: "nextdotjs" },
+  { label: "astro", slug: "astro" },
+  { label: "node.js", slug: "nodedotjs" },
+  { label: "d3.js", slug: "d3" },
+  { label: "django", slug: "django" },
+  { label: "flask", slug: "flask" },
+  { label: "tailwind css", slug: "tailwindcss" },
+  { label: "prisma", slug: "prisma" },
 ];
 ---
 <div class="marquee-wrap">
   <span class="marquee-label marquee-label-left">skills →</span>
   <div class="marquee-track">
     {[...tech, ...tech].map((item) => (
-      <span class="marquee-item">{item}<span class="marquee-sep">✦</span></span>
+      <span class="marquee-item marquee-item-icon" data-tip={item.label}>
+        <img
+          src={item.url ?? `https://cdn.simpleicons.org/${item.slug}/b5d4ac`}
+          width="18"
+          height="18"
+          alt={item.label}
+          loading="lazy"
+          class={item.tinted ? 'icon-tinted' : undefined}
+        />
+        <span class="marquee-sep">✦</span>
+      </span>
     ))}
   </div>
 </div>
+
+<script>
+  const tooltip = document.getElementById('marquee-tooltip');
+  let activeSkillItem: Element | null = null;
+
+  function showSkill(el: Element) {
+    const tip = (el as HTMLElement).dataset.tip;
+    if (!tip || !tooltip) return;
+    tooltip.textContent = tip;
+    tooltip.classList.add('visible');
+    positionSkill(el);
+    activeSkillItem = el;
+  }
+
+  function hideSkill() {
+    if (!tooltip) return;
+    // Only hide if not being used by the exploring marquee
+    const exploringActive = document.querySelector('.marquee-item-tip:hover');
+    if (!exploringActive) tooltip.classList.remove('visible');
+    activeSkillItem = null;
+  }
+
+  function positionSkill(el: Element) {
+    if (!tooltip) return;
+    const rect = el.getBoundingClientRect();
+    const tipW = tooltip.offsetWidth;
+    const margin = 10;
+
+    let left = rect.left + rect.width / 2 - tipW / 2;
+    left = Math.max(margin, Math.min(left, window.innerWidth - tipW - margin));
+
+    const spaceAbove = rect.top;
+    const above = spaceAbove > 80;
+    const top = above
+      ? rect.top - tooltip.offsetHeight - 10
+      : rect.bottom + 10;
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+    tooltip.dataset.pos = above ? 'above' : 'below';
+  }
+
+  document.querySelectorAll('.marquee-item-icon').forEach((el) => {
+    el.addEventListener('mouseenter', () => showSkill(el));
+    el.addEventListener('mouseleave', () => hideSkill());
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (activeSkillItem === el) { hideSkill(); } else { showSkill(el); }
+    });
+  });
+</script>

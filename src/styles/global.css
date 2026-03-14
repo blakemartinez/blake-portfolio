@@ -227,6 +227,26 @@ header nav {
   color: var(--text-muted);
 }
 
+.hero-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.tx-outline {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 8;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
 .hero-verb {
   font-weight: 700;
   margin-right: 8px;
@@ -253,6 +273,167 @@ header nav {
   animation: blinkTextCursor 600ms steps(1) infinite;
 }
 
+/* ── Keyboard intro ─────────────────────────────────────── */
+
+#keycap-intro {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  z-index: 200;
+}
+
+.kb-display {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  min-height: 1.2em;
+}
+
+.kb-cursor {
+  color: var(--accent);
+  animation: blinkTextCursor 600ms steps(1) infinite;
+}
+
+.kb-hint {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0;
+  order: 1;
+}
+
+/* 3D white case — outer shell */
+.kb-case {
+  background: linear-gradient(170deg, #ffffff 0%, #f0eeea 50%, #e4e2dc 100%);
+  border-radius: 12px 12px 14px 14px;
+  padding: 14px 14px 18px;
+  border: 1px solid #d8d5cf;
+  /* Stacked box-shadows simulate case side thickness */
+  box-shadow:
+    0 1px 0 #d4d1cb,
+    0 2px 0 #ccc9c3,
+    0 3px 0 #c4c1bb,
+    0 4px 0 #bcb9b3,
+    0 5px 0 #b4b1ab,
+    0 6px 0 #aca9a3,
+    0 7px 0 #a4a19b,
+    0 8px 0 #9c9993,
+    0 14px 30px rgba(0,0,0,0.35),
+    inset 0 1px 1px rgba(255,255,255,0.95);
+}
+
+/* Inner plate — recessed tray where keys sit */
+.kb-plate {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #d8d5cf;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.15), inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.kb-row {
+  display: flex;
+  gap: 4px;
+}
+
+.kb-row-space {
+  align-items: center;
+}
+
+/* Off-white alpha keys */
+.key {
+  --ku: 34px;
+  width: var(--ku);
+  height: var(--ku);
+  background: #f2efe8;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  font-family: var(--font-mono);
+  color: #3a3835;
+  text-transform: lowercase;
+  border-bottom: 3px solid #c8c4bc;
+  border-right: 1px solid #dedad3;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(0,0,0,0.05);
+  user-select: none;
+  flex-shrink: 0;
+  transition: background 0.05s, color 0.05s, transform 0.05s, border-bottom-width 0.05s, box-shadow 0.05s;
+}
+
+/* Slightly darker off-white for tab, caps, shift, backslash */
+.key-u15,
+.key-u175,
+.key-u225 {
+  background: #eae7e0;
+  border-bottom-color: #bfbbb3;
+  border-right-color: #d4d0c8;
+}
+
+/* Green accent keys — esc, backspace, enter, space */
+[data-key="backtick"],
+[data-key="backspace"],
+[data-key="enter"],
+[data-key="space"] {
+  background: #c0dbb6;
+  color: #2a3d27;
+  border-bottom-color: #8cb882;
+  border-right-color: #aacfa0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.05);
+}
+
+/* Gray nav/arrow cluster keys */
+.key-nav {
+  background: #b8b5ae;
+  color: #2a2826;
+  border-bottom-color: #8a8780;
+  border-right-color: #a8a59e;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Small modifier keys in space row */
+.key-mod-sm {
+  width: 42px;
+  background: #eae7e0;
+  border-bottom-color: #bfbbb3;
+}
+
+/* Key widths */
+.key-u15  { width: 55px;  }
+.key-u175 { width: 66px;  }
+.key-u2   { width: 76px;  }
+.key-u225 { width: 87px;  }
+.key-u175[data-key="rshift"] { width: 66px; }
+.key-usp  { flex: 1; min-width: 160px; }
+
+/* Win key — no text, just the SVG logo */
+[data-key="win"] {
+  background: #eae7e0;
+  border-bottom-color: #bfbbb3;
+}
+
+/* Active / pressed key */
+.key.key-active {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  box-shadow: 0 0 14px rgba(181, 212, 172, 0.5);
+}
+
+@media (max-width: 767px) {
+  #keycap-intro { display: none; }
+}
+
 /* ── Typewriter animation ───────────────────────────────── */
 
 .hero-name-cursor {
@@ -262,6 +443,58 @@ header nav {
 @keyframes blinkTextCursor {
   0%, 100% { border-right-color: var(--text); }
   50%       { border-right-color: transparent; }
+}
+
+/* ── Marquee tooltip ────────────────────────────────────── */
+
+#marquee-tooltip {
+  position: fixed;
+  z-index: 150;
+  max-width: 260px;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+#marquee-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.marquee-item-tip {
+  cursor: pointer;
+}
+
+.marquee-item-tip:hover {
+  color: var(--accent);
+}
+
+.marquee-item-icon {
+  cursor: pointer;
+  padding: 0 0.75rem;
+}
+
+.marquee-item-icon img {
+  display: block;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+.marquee-item-icon:hover img {
+  opacity: 1;
+}
+
+.marquee-item-icon img.icon-tinted {
+  filter: brightness(0) saturate(100%) invert(85%) sepia(12%) saturate(420%) hue-rotate(66deg) brightness(98%) contrast(85%);
 }
 
 /* ── Section headings ───────────────────────────────────── */
@@ -667,11 +900,16 @@ footer a:hover {
     width: 100px;
     height: 100px;
     align-self: center;
+    margin-top: 0;
   }
 
   .hero-photo {
     width: 100px;
     height: 100px;
+  }
+
+  .hero-lines {
+    margin-bottom: var(--space-sm);
   }
 
   .project-grid {
