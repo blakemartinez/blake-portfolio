@@ -1,2 +1,2 @@
 # Blake Portfolio
-https://blake-blakemartinez.vercel.app/ 
+https://blakemartinez.dev
