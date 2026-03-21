@@ -18,10 +18,10 @@ const items = [
   },
 ];
 ---
-<div class="marquee-wrap">
-  <span class="marquee-label marquee-label-left">exploring →</span>
+<div class="marquee-wrap marquee-reverse">
+  <span class="marquee-label marquee-label-right">← exploring</span>
   <div class="marquee-track">
-    {[...items, ...items].map((item) => (
+    {[...items, ...items, ...items, ...items].map((item) => (
       <span class="marquee-item marquee-item-tip" data-tip={item.tip}>
         {item.label}<span class="marquee-sep">✦</span>
       </span>
