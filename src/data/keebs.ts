@@ -29,12 +29,11 @@ export const keebs: Keeb[] = [
     youtubeUrl: "https://youtube.com/shorts/7UYOwZ-T3Ow?si=ueqBW7VOzyR57XvD",
   },
   {
-    name: "build 3",
-    case: "—",
-    switches: "—",
-    keycaps: "—",
-    sound: "—",
+    name: "don't let him cook",
+    case: "Random Alibaba 60%",
+    switches: "Cherry MX Reds",
+    keycaps: "Cheap Side Print Keycaps",
+    sound: "silent clacky",
     photo: "keebs/red_white.jpg",
-    placeholder: true,
   },
 ];
