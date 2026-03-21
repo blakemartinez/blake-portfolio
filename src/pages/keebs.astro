@@ -1,9 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { keebs } from '../data/keebs';
 ---
 <BaseLayout pageTitle="keebs — blake martinez" description="Blake's mechanical keyboard collection.">
   <h1 class="section-label">keebs</h1>
-  <div class="keebs-container">
+
+  <div class="keebs-grid">
+    {keebs.map((keeb) => (
+      <div class={`keeb-card${keeb.placeholder ? ' keeb-card-placeholder' : ''}`}>
+        <div class="keeb-card-inner">
+
+          <div class="keeb-card-front">
+            {keeb.photo
+              ? <img src={`/${keeb.photo}`} alt={keeb.name} class="keeb-photo" />
+              : <div class="keeb-photo-placeholder">
+                  {keeb.placeholder
+                    ? <span class="keeb-coming-soon">coming soon</span>
+                    : <span class="keeb-photo-label">{keeb.name}</span>
+                  }
+                </div>
+            }
+            <div class="keeb-front-footer">
+              <span class="keeb-name">{keeb.name}</span>
+              {!keeb.placeholder && <span class="keeb-sound-badge">{keeb.sound}</span>}
+            </div>
+            {!keeb.placeholder && <span class="keeb-flip-hint">tap to flip</span>}
+          </div>
+
+          <div class="keeb-card-back">
+            <table class="keeb-specs">
+              <tbody>
+                <tr><td class="spec-label">case</td><td class="spec-value">{keeb.case}</td></tr>
+                <tr><td class="spec-label">switches</td><td class="spec-value">{keeb.switches}</td></tr>
+                <tr><td class="spec-label">keycaps</td><td class="spec-value">{keeb.keycaps}</td></tr>
+                <tr><td class="spec-label">sound</td><td class="spec-value">{keeb.sound}</td></tr>
+              </tbody>
+            </table>
+            {keeb.youtubeUrl &&
+              <a class="keeb-sound-link" href={keeb.youtubeUrl} target="_blank" rel="noopener noreferrer">
+                ▶ hear it
+              </a>
+            }
+            <span class="keeb-flip-hint">tap to flip</span>
+          </div>
+
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="keebs-model-wrap">
+    <p class="keebs-model-label">3d view</p>
     <model-viewer
       src="/keebRender.gltf"
       ar
@@ -16,5 +63,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       auto-rotate
     ></model-viewer>
   </div>
+
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.keeb-card:not(.keeb-card-placeholder)').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+</script>
