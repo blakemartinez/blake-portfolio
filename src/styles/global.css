@@ -948,6 +948,7 @@ model-viewer {
   border: 1px solid var(--accent);
   padding: 1px 6px;
   opacity: 0.8;
+  white-space: nowrap;
 }
 
 .keeb-flip-hint {
