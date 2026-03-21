@@ -900,7 +900,7 @@ model-viewer {
   width: 100%;
   flex: 1;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 60%;
   min-height: 0;
   display: block;
 }
