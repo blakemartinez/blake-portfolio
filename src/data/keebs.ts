@@ -17,6 +17,7 @@ export const keebs: Keeb[] = [
     keycaps: "Winmix 9009 Dye Sub PBT",
     sound: "thocky",
     photo: "keebs/daily_driver.jpg",
+    youtubeUrl: "https://www.youtube.com/watch?v=_Jhm_qNjMBA",
   },
   {
     name: "build 2",
