@@ -16,6 +16,7 @@ export const keebs: Keeb[] = [
     switches: "Gateron Yellow Ink V2",
     keycaps: "Winmix 9009 Dye Sub PBT",
     sound: "thocky",
+    photo: "keebs/daily_driver.jpg",
   },
   {
     name: "build 2",
@@ -23,6 +24,7 @@ export const keebs: Keeb[] = [
     switches: "—",
     keycaps: "—",
     sound: "—",
+    photo: "keebs/black_keyboard.jpg",
     placeholder: true,
   },
   {
@@ -31,6 +33,7 @@ export const keebs: Keeb[] = [
     switches: "—",
     keycaps: "—",
     sound: "—",
+    photo: "keebs/red_white.jpg",
     placeholder: true,
   },
 ];
