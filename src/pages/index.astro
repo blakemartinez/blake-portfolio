@@ -176,6 +176,15 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
 </script>
 
 <script>
+  // Pause marquee on tap (mobile) — CSS :hover doesn't fire reliably on touch
+  document.querySelectorAll('.marquee-track').forEach((track) => {
+    track.addEventListener('touchstart', () => {
+      track.classList.toggle('paused');
+    }, { passive: true });
+  });
+</script>
+
+<script>
   import { gsap } from 'gsap';
   import { TextPlugin } from 'gsap/TextPlugin';
   gsap.registerPlugin(TextPlugin);
