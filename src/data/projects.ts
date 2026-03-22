@@ -12,6 +12,14 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    name: "ai-pulse",
+    desc: "A sentiment observatory for AI tools — tracks where every tool sits in its hype cycle. Ingests from 8 sources (HN, Reddit, GitHub, arXiv, blogs, npm/PyPI, YouTube, Twitter), runs hybrid sentiment analysis with a rules engine + Claude fallback, and classifies tools into lifecycle phases. Trying to find signal in a very noisy, fast-moving landscape.",
+    url: null,
+    githubUrl: null,
+    stack: ["TypeScript", "Hono", "Drizzle", "Supabase", "Upstash", "Claude API"],
+    favorite: true,
+  },
+  {
     name: "who-hit-a-homerun-today",
     desc: "Tracks daily MLB home runs. I am a huge baseball fan (Go Rangers!) and really like getting into the numbers & stats for visualizations.",
     url: "https://who-hit-a-homerun-today.vercel.app/",
@@ -30,6 +38,15 @@ export const projects: Project[] = [
     stack: ["D3.js", "Python", "UMAP", "Discogs API", "Transformers"],
     favorite: true,
     screenshot: "/screenshots/record-map.png",
+    browserFrame: true,
+  },
+  {
+    name: "crates",
+    desc: "What Discogs could be if they listened. Took 15 real complaints from Reddit, forums, and Trustpilot and built the fixes using their own API — smart search, collection insights, fee calculator, Collection Wrapped, and more. Built in a weekend to prove a point.",
+    url: "https://crates-nu.vercel.app",
+    githubUrl: null,
+    stack: ["Next.js", "Tailwind CSS", "TypeScript", "Discogs API"],
+    favorite: true,
     browserFrame: true,
   },
   {
