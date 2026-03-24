@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout pageTitle="404">
+  <div class="four-oh-four">
+    <div class="terminal-window">
+      <div class="terminal-bar">
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+        <span class="term-title">bash</span>
+      </div>
+      <div class="terminal-body">
+        <p class="term-line">
+          <span class="term-prompt">visitor@blakemartinez.dev</span><span class="term-colon">:</span><span class="term-path">~</span><span class="term-dollar">$</span> cd <span class="term-arg" id="bad-path"></span>
+        </p>
+        <p class="term-line term-error">
+          bash: cd: no such file or directory
+        </p>
+        <p class="term-line term-blank"></p>
+        <p class="term-line">
+          <span class="term-prompt">visitor@blakemartinez.dev</span><span class="term-colon">:</span><span class="term-path">~</span><span class="term-dollar">$</span> <span class="term-cursor" id="cursor-line">|</span>
+        </p>
+      </div>
+    </div>
+
+    <p class="four-oh-four-code">404</p>
+    <p class="four-oh-four-msg">this page doesn't exist. maybe it never did.</p>
+    <a href="/" class="four-oh-four-link">cd ~</a>
+  </div>
+</BaseLayout>
+
+<script>
+  const el = document.getElementById('bad-path');
+  if (el) el.textContent = window.location.pathname;
+</script>
+
+<style>
+  .four-oh-four {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .terminal-window {
+    width: 100%;
+    max-width: 540px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .term-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .term-dot:nth-child(1) { background: #ff5f57; }
+  .term-dot:nth-child(2) { background: #febc2e; }
+  .term-dot:nth-child(3) { background: #28c840; }
+
+  .term-title {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 36px; /* offset the dots so title looks centered */
+  }
+
+  .terminal-body {
+    padding: 1rem 1.25rem;
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .term-line {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .term-prompt { color: var(--accent); font-weight: 700; }
+  .term-colon  { color: var(--text-muted); }
+  .term-path   { color: #9ab5d4; font-weight: 700; }
+  .term-dollar { color: var(--text-muted); margin: 0 6px 0 2px; }
+  .term-arg    { color: var(--text); }
+
+  .term-error {
+    color: #d4746a;
+    font-weight: 500;
+  }
+
+  .term-blank {
+    height: 1.4em;
+  }
+
+  .term-cursor {
+    color: var(--accent);
+    animation: blink-cursor 600ms steps(1) infinite;
+  }
+
+  @keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+  }
+
+  .four-oh-four-code {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    opacity: 0.15;
+  }
+
+  .four-oh-four-msg {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .four-oh-four-link {
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    border: 1px solid var(--accent);
+    padding: 6px 20px;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .four-oh-four-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+  }
+</style>
