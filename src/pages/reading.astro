@@ -133,52 +133,15 @@ function stars(n: number): string {
     </div>
   </section>
 
-  <!-- Completed books grid -->
+  <!-- Completed: shelf + card grid -->
   <section class="reading-section" id="section-done">
-    <div class="book-grid">
-      {done.map((book) => (
-        <div
-          class="book-card"
-          data-title={book.title.toLowerCase()}
-          data-author={book.author.toLowerCase()}
-          data-genres={book.genres.join(',')}
-          data-year={book.year ?? ''}
-          data-has-review={book.review ? 'true' : 'false'}
-        >
-          <img src={book.cover} alt={book.title} class="book-card-cover" loading="lazy" />
-          <div class="book-card-info">
-            <p class="book-card-title">{book.title}</p>
-            {book.seriesNumber && <p class="book-card-series">Book {book.seriesNumber}</p>}
-            <p class="book-card-author">{book.author}</p>
-            {book.rating && <p class="book-card-stars">{stars(book.rating)}</p>}
-            <div class="book-card-genres">
-              {book.genres.map((g) => (
-                <span class="genre-tag genre-tag-sm" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
-              ))}
-            </div>
-            {book.year && <span class="book-card-year">{book.year}</span>}
-          </div>
-          {book.review && (
-            <div class="book-card-review">
-              <div class="book-card-review-inner">
-                {book.review}
-              </div>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Backlog: spines + grid -->
-  <section class="reading-section hidden" id="section-backlog">
-    <!-- Spine shelf -->
+    <!-- Spine shelf for completed books -->
     <div class="spine-shelf">
-      <p class="spine-shelf-label">the shelf — hover to peek</p>
-      <div class="spine-row">
-        {backlog.map((book) => (
+      <p class="spine-shelf-label">the shelf — tap a spine to pull it out</p>
+      <div class="spine-row spine-row-done">
+        {done.map((book) => (
           <div
-            class="spine"
+            class="spine spine-done"
             data-id={book.id}
             style={`--spine-color:${GENRE_COLORS[book.genres[0]] ?? '#6b7280'}`}
             data-title={book.title.toLowerCase()}
@@ -189,9 +152,16 @@ function stars(n: number): string {
             <span class="spine-title">{book.title}</span>
             <div class="spine-expanded">
               <img src={book.cover} alt={book.title} class="spine-cover" loading="lazy" />
-              <div class="spine-overlay">
+              <div class="spine-overlay spine-overlay-done">
                 <p class="spine-overlay-title">{book.title}</p>
                 <p class="spine-overlay-author">{book.author}</p>
+                {book.rating && <p class="spine-overlay-stars">{stars(book.rating)}</p>}
+                <div class="spine-overlay-genres">
+                  {book.genres.map((g) => (
+                    <span class="genre-tag genre-tag-sm" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
+                  ))}
+                </div>
+                {book.review && <p class="spine-overlay-review">{book.review}</p>}
               </div>
             </div>
           </div>
@@ -199,7 +169,47 @@ function stars(n: number): string {
       </div>
     </div>
 
-    <!-- Backlog cards -->
+    <!-- Card grid as alternate view -->
+    <details class="reading-grid-toggle">
+      <summary class="reading-grid-toggle-label">card view</summary>
+      <div class="book-grid" style="margin-top: 10px;">
+        {done.map((book) => (
+          <div
+            class="book-card"
+            data-title={book.title.toLowerCase()}
+            data-author={book.author.toLowerCase()}
+            data-genres={book.genres.join(',')}
+            data-year={book.year ?? ''}
+            data-has-review={book.review ? 'true' : 'false'}
+          >
+            <img src={book.cover} alt={book.title} class="book-card-cover" loading="lazy" />
+            <div class="book-card-info">
+              <p class="book-card-title">{book.title}</p>
+              {book.seriesNumber && <p class="book-card-series">Book {book.seriesNumber}</p>}
+              <p class="book-card-author">{book.author}</p>
+              {book.rating && <p class="book-card-stars">{stars(book.rating)}</p>}
+              <div class="book-card-genres">
+                {book.genres.map((g) => (
+                  <span class="genre-tag genre-tag-sm" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
+                ))}
+              </div>
+              {book.year && <span class="book-card-year">{book.year}</span>}
+            </div>
+            {book.review && (
+              <div class="book-card-review">
+                <div class="book-card-review-inner">
+                  {book.review}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </details>
+  </section>
+
+  <!-- Backlog: just card grid -->
+  <section class="reading-section hidden" id="section-backlog">
     <div class="book-grid">
       {backlog.map((book) => (
         <div
@@ -362,10 +372,14 @@ function stars(n: number): string {
     });
   });
 
-  // ── Spine hover expand ────────────────────────
-  document.querySelectorAll<HTMLElement>('.spine').forEach((spine) => {
-    spine.addEventListener('mouseenter', () => spine.classList.add('expanded'));
-    spine.addEventListener('mouseleave', () => spine.classList.remove('expanded'));
-    spine.addEventListener('click', () => spine.classList.toggle('expanded'));
+  // ── Spine expand (completed: click to toggle, backlog: hover) ──
+  document.querySelectorAll<HTMLElement>('.spine-done').forEach((spine) => {
+    spine.addEventListener('click', () => {
+      // Close other expanded spines in the same row
+      spine.parentElement?.querySelectorAll('.spine.expanded').forEach((s) => {
+        if (s !== spine) s.classList.remove('expanded');
+      });
+      spine.classList.toggle('expanded');
+    });
   });
 </script>

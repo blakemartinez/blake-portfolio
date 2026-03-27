@@ -1156,8 +1156,10 @@ footer a:hover {
   .book-card-stars { font-size: 0.6rem; }
   .reading-stats { font-size: 0.55rem; gap: 4px; }
   .spine-row { height: 140px; }
+  .spine-row-done { height: 180px; }
   .spine { width: 24px; height: 130px; }
   .spine.expanded { width: 110px; }
+  .spine-done.expanded { width: 200px; height: 170px; }
 }
 
 /* ── Reading Page ────────────────────────────────────── */
@@ -1641,6 +1643,10 @@ footer a:hover {
   padding-bottom: 4px;
 }
 
+.spine-row-done {
+  height: 210px;
+}
+
 .spine {
   flex-shrink: 0;
   width: 28px;
@@ -1655,6 +1661,12 @@ footer a:hover {
 
 .spine.expanded {
   width: 120px;
+}
+
+/* Completed spines expand wider to show review */
+.spine-done.expanded {
+  width: 240px;
+  height: 200px;
 }
 
 .spine.hidden {
@@ -1708,6 +1720,14 @@ footer a:hover {
   padding: 6px;
 }
 
+/* Completed spine overlay — taller, with review */
+.spine-overlay-done {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 60%, transparent);
+  padding: 8px;
+  max-height: 75%;
+  overflow-y: auto;
+}
+
 .spine-overlay-title {
   font-size: 0.5rem;
   font-weight: 700;
@@ -1720,4 +1740,50 @@ footer a:hover {
   font-size: 0.45rem;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
+}
+
+.spine-overlay-stars {
+  font-size: 0.55rem;
+  color: var(--accent);
+  margin: 3px 0 0;
+}
+
+.spine-overlay-genres {
+  display: flex;
+  gap: 3px;
+  margin-top: 3px;
+  flex-wrap: wrap;
+}
+
+.spine-overlay-review {
+  font-size: 0.45rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 5px 0 0;
+  line-height: 1.5;
+}
+
+/* Card grid toggle */
+.reading-grid-toggle {
+  margin-top: var(--space-sm);
+}
+
+.reading-grid-toggle-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  list-style: none;
+}
+
+.reading-grid-toggle-label::-webkit-details-marker {
+  display: none;
+}
+
+.reading-grid-toggle-label::before {
+  content: '+ ';
+  color: var(--accent);
+}
+
+.reading-grid-toggle[open] .reading-grid-toggle-label::before {
+  content: '- ';
 }
