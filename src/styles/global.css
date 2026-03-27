@@ -1143,4 +1143,581 @@ footer a:hover {
   footer {
     padding: var(--space-sm);
   }
+
+  /* Reading page mobile */
+  .carousel-wrap { height: 220px; }
+  .carousel-item img { width: 120px; height: 180px; }
+  .carousel-btn { display: none; }
+  .book-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .book-card-cover { width: 70px; height: 100px; }
+  .book-card-info { gap: 2px; }
+  .book-card-title { font-size: 0.65rem; }
+  .book-card-author { font-size: 0.55rem; }
+  .book-card-stars { font-size: 0.6rem; }
+  .reading-stats { font-size: 0.55rem; gap: 4px; }
+  .spine-row { height: 140px; }
+  .spine { width: 24px; height: 130px; }
+  .spine.expanded { width: 110px; }
+}
+
+/* ── Reading Page ────────────────────────────────────── */
+
+.reading-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.reading-stats-sep {
+  opacity: 0.3;
+}
+
+/* Carousel */
+.reading-hero {
+  margin-bottom: var(--space-md);
+}
+
+.reading-hero-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: var(--space-xs);
+}
+
+.carousel-wrap {
+  position: relative;
+  height: 260px;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -65px;
+  margin-top: -105px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  will-change: transform, opacity;
+}
+
+.carousel-cover {
+  width: 130px;
+  height: 195px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+
+.carousel-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.carousel-btn-prev { left: 0; }
+.carousel-btn-next { right: 0; }
+
+.carousel-info {
+  text-align: center;
+  margin-top: var(--space-xs);
+  min-height: 80px;
+}
+
+.carousel-info-item {
+  display: none;
+}
+
+.carousel-info-item.active {
+  display: block;
+}
+
+.carousel-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.carousel-author {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.carousel-genres {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.carousel-why {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  max-width: 360px;
+  margin: 8px auto 0;
+  line-height: 1.5;
+}
+
+.carousel-why-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s;
+}
+
+.carousel-dot.active {
+  background: var(--accent);
+  width: 18px;
+  border-radius: 3px;
+}
+
+/* Genre tags */
+.genre-tag {
+  font-size: 0.5rem;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  color: #fff;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.genre-tag-sm {
+  font-size: 0.45rem;
+  padding: 1px 5px;
+}
+
+/* Controls bar */
+.reading-controls {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-sm);
+}
+
+.reading-tabs {
+  display: flex;
+  align-items: center;
+  height: 38px;
+}
+
+.reading-tab {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 0 12px;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.reading-tab:hover {
+  color: var(--text);
+}
+
+.reading-tab.active {
+  color: var(--accent);
+}
+
+.reading-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.reading-tab-count {
+  font-size: 0.55rem;
+  opacity: 0.5;
+}
+
+.reading-controls-right {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+
+.reading-icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px;
+  cursor: pointer;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.reading-icon-btn:hover {
+  color: var(--accent);
+}
+
+/* Drawers */
+.reading-drawer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+.reading-drawer.open {
+  max-height: 120px;
+}
+
+.reading-search {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text);
+  margin: 6px 0;
+}
+
+.reading-search::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.reading-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.reading-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 0;
+}
+
+.filter-pill {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-pill:hover {
+  border-color: var(--text-muted);
+}
+
+.filter-pill.active {
+  background: var(--pill-color, var(--accent));
+  color: #fff;
+  border-color: transparent;
+}
+
+.filter-pill-year.active {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.filter-sep {
+  width: 1px;
+  background: var(--border);
+  margin: 0 2px;
+  align-self: stretch;
+}
+
+/* Sections */
+.reading-section.hidden {
+  display: none;
+}
+
+/* Book grid */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 10px;
+}
+
+.book-card {
+  background: #1e2e1a;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: border-color 0.15s;
+}
+
+.book-card:hover {
+  border-color: var(--text-muted);
+}
+
+.book-card[data-has-review="true"] {
+  cursor: pointer;
+}
+
+.book-card[data-has-review="true"]::after {
+  content: 'tap for review';
+  font-size: 0.45rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+  transition: opacity 0.15s;
+}
+
+.book-card[data-has-review="true"]:hover::after {
+  opacity: 0.7;
+  color: var(--accent);
+}
+
+.book-card.review-open[data-has-review="true"]::after {
+  display: none;
+}
+
+.book-card.hidden {
+  display: none;
+}
+
+.book-card-cover {
+  width: 85px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.book-card-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+}
+
+.book-card-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.book-card-series {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.book-card-author {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.book-card-stars {
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.book-card-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  justify-content: center;
+}
+
+.book-card-year {
+  font-size: 0.5rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Review expand */
+.book-card-review {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  width: 100%;
+}
+
+.book-card.review-open .book-card-review {
+  max-height: 250px;
+}
+
+.book-card-review-inner {
+  padding-top: 8px;
+  margin-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 0.6rem;
+  color: var(--text);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Spine shelf */
+.spine-shelf {
+  margin-bottom: var(--space-sm);
+}
+
+.spine-shelf-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.spine-row {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 170px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.spine {
+  flex-shrink: 0;
+  width: 28px;
+  height: 160px;
+  background: var(--spine-color);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.spine.expanded {
+  width: 120px;
+}
+
+.spine.hidden {
+  display: none;
+}
+
+.spine-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 2px;
+  transition: opacity 0.2s;
+}
+
+.spine.expanded .spine-title {
+  opacity: 0;
+}
+
+.spine-expanded {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.spine.expanded .spine-expanded {
+  opacity: 1;
+}
+
+.spine-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spine-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 6px;
+}
+
+.spine-overlay-title {
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.spine-overlay-author {
+  font-size: 0.45rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
 }

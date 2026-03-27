@@ -252,7 +252,7 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
     .to('#line-reading', {
       duration: Math.max(read.length * CHAR_SPEED, 0.05),
       text: read, ease: 'none',
-      onComplete: () => makeClickable('line-reading', 'https://readme-list.vercel.app/'),
+      onComplete: () => makeClickable('line-reading', '/reading'),
     })
     .set('#cursor-reading', { opacity: 0 })
     .to('.hero-verb.writing', { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, '+=0.2')

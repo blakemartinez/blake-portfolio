@@ -1,0 +1,371 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getBooks, GENRE_COLORS, ALL_GENRES } from '../data/bookTypes';
+
+const books = getBooks();
+const reading = books.filter((b) => b.status === 'reading');
+const done = books.filter((b) => b.status === 'done');
+const backlog = books.filter((b) => b.status === 'backlog');
+
+const totalDone = done.length;
+const rated = done.filter((b) => b.rating != null);
+const avgRating = rated.length > 0
+  ? (rated.reduce((sum, b) => sum + (b.rating ?? 0), 0) / rated.length).toFixed(1)
+  : '—';
+const genreCounts: Record<string, number> = {};
+for (const b of [...reading, ...done]) {
+  for (const g of b.genres) genreCounts[g] = (genreCounts[g] ?? 0) + 1;
+}
+const topGenre = Object.entries(genreCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
+const doneThisYear = done.filter((b) => b.year === 2026).length;
+
+const years = [...new Set([2023, 2024, 2025, 2026, ...books.map((b) => b.year).filter((y): y is number => !!y)])].sort((a, b) => b - a);
+
+function stars(n: number): string {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+---
+
+<BaseLayout pageTitle="reading — blake martinez" description="Blake's reading list and reviews.">
+
+  <!-- Stats strip -->
+  <div class="reading-stats">
+    <span>{totalDone} read</span>
+    <span class="reading-stats-sep">·</span>
+    <span>avg {avgRating}★</span>
+    <span class="reading-stats-sep">·</span>
+    <span>top: {topGenre}</span>
+    <span class="reading-stats-sep">·</span>
+    <span>2026: {doneThisYear}/12</span>
+  </div>
+
+  <!-- Carousel: currently reading -->
+  <section class="reading-hero" id="reading-hero">
+    <p class="reading-hero-label">currently reading</p>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carousel-track">
+        {reading.map((book, i) => (
+          <div
+            class={`carousel-item ${i === 0 ? 'active' : ''}`}
+            data-index={i}
+          >
+            <img src={book.cover} alt={book.title} class="carousel-cover" />
+          </div>
+        ))}
+      </div>
+
+      <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Previous">‹</button>
+      <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Next">›</button>
+    </div>
+
+    <div class="carousel-info" id="carousel-info">
+      {reading.map((book, i) => (
+        <div class={`carousel-info-item ${i === 0 ? 'active' : ''}`} data-index={i}>
+          <p class="carousel-title">{book.title}</p>
+          <p class="carousel-author">{book.author}</p>
+          <div class="carousel-genres">
+            {book.genres.map((g) => (
+              <span class="genre-tag" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
+            ))}
+          </div>
+          {book.whyReading && (
+            <p class="carousel-why">
+              <span class="carousel-why-label">why:</span> {book.whyReading}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="carousel-dots" id="carousel-dots">
+      {reading.map((_, i) => (
+        <button class={`carousel-dot ${i === 0 ? 'active' : ''}`} data-index={i} aria-label={`Book ${i + 1}`} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Controls: tabs + search + filters -->
+  <section class="reading-controls" id="reading-controls">
+    <div class="reading-tabs">
+      <button class="reading-tab active" data-tab="done">
+        completed <span class="reading-tab-count" id="done-count">{done.length}</span>
+      </button>
+      <button class="reading-tab" data-tab="backlog">
+        backlog <span class="reading-tab-count" id="backlog-count">{backlog.length}</span>
+      </button>
+
+      <div class="reading-controls-right">
+        <button class="reading-icon-btn" id="search-toggle" aria-label="Search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="reading-icon-btn" id="filter-toggle" aria-label="Filters">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search drawer -->
+    <div class="reading-drawer" id="search-drawer">
+      <input
+        type="text"
+        class="reading-search"
+        id="reading-search"
+        placeholder="search by title or author..."
+      />
+    </div>
+
+    <!-- Filter drawer -->
+    <div class="reading-drawer" id="filter-drawer">
+      <div class="reading-filter-pills">
+        {ALL_GENRES.map((g) => (
+          <button
+            class="filter-pill"
+            data-genre={g}
+            style={`--pill-color:${GENRE_COLORS[g]}`}
+          >{g}</button>
+        ))}
+        <span class="filter-sep"></span>
+        {years.map((y) => (
+          <button class="filter-pill filter-pill-year" data-year={y}>{y}</button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Completed books grid -->
+  <section class="reading-section" id="section-done">
+    <div class="book-grid">
+      {done.map((book) => (
+        <div
+          class="book-card"
+          data-title={book.title.toLowerCase()}
+          data-author={book.author.toLowerCase()}
+          data-genres={book.genres.join(',')}
+          data-year={book.year ?? ''}
+          data-has-review={book.review ? 'true' : 'false'}
+        >
+          <img src={book.cover} alt={book.title} class="book-card-cover" loading="lazy" />
+          <div class="book-card-info">
+            <p class="book-card-title">{book.title}</p>
+            {book.seriesNumber && <p class="book-card-series">Book {book.seriesNumber}</p>}
+            <p class="book-card-author">{book.author}</p>
+            {book.rating && <p class="book-card-stars">{stars(book.rating)}</p>}
+            <div class="book-card-genres">
+              {book.genres.map((g) => (
+                <span class="genre-tag genre-tag-sm" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
+              ))}
+            </div>
+            {book.year && <span class="book-card-year">{book.year}</span>}
+          </div>
+          {book.review && (
+            <div class="book-card-review">
+              <div class="book-card-review-inner">
+                {book.review}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Backlog: spines + grid -->
+  <section class="reading-section hidden" id="section-backlog">
+    <!-- Spine shelf -->
+    <div class="spine-shelf">
+      <p class="spine-shelf-label">the shelf — hover to peek</p>
+      <div class="spine-row">
+        {backlog.map((book) => (
+          <div
+            class="spine"
+            data-id={book.id}
+            style={`--spine-color:${GENRE_COLORS[book.genres[0]] ?? '#6b7280'}`}
+            data-title={book.title.toLowerCase()}
+            data-author={book.author.toLowerCase()}
+            data-genres={book.genres.join(',')}
+            data-year={book.year ?? ''}
+          >
+            <span class="spine-title">{book.title}</span>
+            <div class="spine-expanded">
+              <img src={book.cover} alt={book.title} class="spine-cover" loading="lazy" />
+              <div class="spine-overlay">
+                <p class="spine-overlay-title">{book.title}</p>
+                <p class="spine-overlay-author">{book.author}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Backlog cards -->
+    <div class="book-grid">
+      {backlog.map((book) => (
+        <div
+          class="book-card"
+          data-title={book.title.toLowerCase()}
+          data-author={book.author.toLowerCase()}
+          data-genres={book.genres.join(',')}
+          data-year={book.year ?? ''}
+        >
+          <img src={book.cover} alt={book.title} class="book-card-cover" loading="lazy" />
+          <div class="book-card-info">
+            <p class="book-card-title">{book.title}</p>
+            {book.seriesNumber && <p class="book-card-series">Book {book.seriesNumber}</p>}
+            <p class="book-card-author">{book.author}</p>
+            <div class="book-card-genres">
+              {book.genres.map((g) => (
+                <span class="genre-tag genre-tag-sm" style={`background:${GENRE_COLORS[g] ?? '#6b7280'}`}>{g}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  // ── Carousel ──────────────────────────────────
+  const items = document.querySelectorAll<HTMLElement>('.carousel-item');
+  const infos = document.querySelectorAll<HTMLElement>('.carousel-info-item');
+  const dots = document.querySelectorAll<HTMLElement>('.carousel-dot');
+  const count = items.length;
+  let active = 0;
+  let paused = false;
+
+  function setActive(idx: number) {
+    active = ((idx % count) + count) % count;
+    items.forEach((el, i) => {
+      const offset = i - active;
+      const norm = offset > count / 2 ? offset - count : offset < -count / 2 ? offset + count : offset;
+      const isActive = norm === 0;
+      const isAdj = Math.abs(norm) === 1;
+      el.style.transform = `translateX(${norm * 130}px) scale(${isActive ? 1 : 0.75})`;
+      el.style.opacity = isActive ? '1' : isAdj ? '0.35' : '0';
+      el.style.zIndex = isActive ? '10' : '1';
+      el.style.pointerEvents = isActive || isAdj ? 'auto' : 'none';
+    });
+    infos.forEach((el, i) => el.classList.toggle('active', i === active));
+    dots.forEach((el, i) => el.classList.toggle('active', i === active));
+  }
+
+  document.getElementById('carousel-prev')?.addEventListener('click', () => setActive(active - 1));
+  document.getElementById('carousel-next')?.addEventListener('click', () => setActive(active + 1));
+  dots.forEach((dot) => dot.addEventListener('click', () => setActive(Number(dot.dataset.index))));
+
+  const hero = document.getElementById('reading-hero');
+  hero?.addEventListener('mouseenter', () => (paused = true));
+  hero?.addEventListener('mouseleave', () => (paused = false));
+
+  let touchX = 0;
+  hero?.addEventListener('touchstart', (e) => (touchX = (e as TouchEvent).touches[0].clientX), { passive: true });
+  hero?.addEventListener('touchend', (e) => {
+    const dx = (e as TouchEvent).changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) setActive(active + (dx > 0 ? -1 : 1));
+  });
+
+  setInterval(() => { if (!paused) setActive(active + 1); }, 5000);
+  setActive(0);
+
+  // ── Tabs ──────────────────────────────────────
+  const tabs = document.querySelectorAll<HTMLElement>('.reading-tab');
+  const sectionDone = document.getElementById('section-done')!;
+  const sectionBacklog = document.getElementById('section-backlog')!;
+
+  tabs.forEach((tab) =>
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const which = tab.dataset.tab;
+      sectionDone.classList.toggle('hidden', which !== 'done');
+      sectionBacklog.classList.toggle('hidden', which !== 'backlog');
+    })
+  );
+
+  // ── Search + Filter drawers ───────────────────
+  const searchToggle = document.getElementById('search-toggle')!;
+  const filterToggle = document.getElementById('filter-toggle')!;
+  const searchDrawer = document.getElementById('search-drawer')!;
+  const filterDrawer = document.getElementById('filter-drawer')!;
+  const searchInput = document.getElementById('reading-search') as HTMLInputElement;
+
+  searchToggle.addEventListener('click', () => {
+    searchDrawer.classList.toggle('open');
+    filterDrawer.classList.remove('open');
+    if (searchDrawer.classList.contains('open')) searchInput.focus();
+  });
+  filterToggle.addEventListener('click', () => {
+    filterDrawer.classList.toggle('open');
+    searchDrawer.classList.remove('open');
+  });
+
+  // ── Filtering logic ───────────────────────────
+  const activeGenres = new Set<string>();
+  const activeYears = new Set<string>();
+
+  function applyFilters() {
+    const query = searchInput.value.toLowerCase().trim();
+    const allCards = document.querySelectorAll<HTMLElement>('.book-card');
+    const allSpines = document.querySelectorAll<HTMLElement>('.spine');
+    let doneVisible = 0;
+    let backlogVisible = 0;
+
+    [...allCards, ...allSpines].forEach((el) => {
+      const title = el.dataset.title ?? '';
+      const author = el.dataset.author ?? '';
+      const genres = (el.dataset.genres ?? '').split(',');
+      const year = el.dataset.year ?? '';
+
+      let show = true;
+      if (query && !title.includes(query) && !author.includes(query)) show = false;
+      if (activeGenres.size > 0 && !genres.some((g) => activeGenres.has(g))) show = false;
+      if (activeYears.size > 0 && !activeYears.has(year)) show = false;
+
+      el.classList.toggle('hidden', !show);
+
+      if (show && el.classList.contains('book-card')) {
+        if (sectionDone.contains(el)) doneVisible++;
+        else backlogVisible++;
+      }
+    });
+
+    document.getElementById('done-count')!.textContent = String(doneVisible);
+    document.getElementById('backlog-count')!.textContent = String(backlogVisible);
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  document.querySelectorAll<HTMLElement>('.filter-pill').forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const genre = pill.dataset.genre;
+      const year = pill.dataset.year;
+      if (genre) {
+        if (activeGenres.has(genre)) { activeGenres.delete(genre); pill.classList.remove('active'); }
+        else { activeGenres.add(genre); pill.classList.add('active'); }
+      }
+      if (year) {
+        if (activeYears.has(year)) { activeYears.delete(year); pill.classList.remove('active'); }
+        else { activeYears.add(year); pill.classList.add('active'); }
+      }
+      applyFilters();
+    });
+  });
+
+  // ── Card review expand ────────────────────────
+  document.querySelectorAll<HTMLElement>('.book-card[data-has-review="true"]').forEach((card) => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      card.classList.toggle('review-open');
+    });
+  });
+
+  // ── Spine hover expand ────────────────────────
+  document.querySelectorAll<HTMLElement>('.spine').forEach((spine) => {
+    spine.addEventListener('mouseenter', () => spine.classList.add('expanded'));
+    spine.addEventListener('mouseleave', () => spine.classList.remove('expanded'));
+    spine.addEventListener('click', () => spine.classList.toggle('expanded'));
+  });
+</script>
