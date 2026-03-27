@@ -1155,11 +1155,11 @@ footer a:hover {
   .book-card-author { font-size: 0.55rem; }
   .book-card-stars { font-size: 0.6rem; }
   .reading-stats { font-size: 0.55rem; gap: 4px; }
-  .spine-row { height: 140px; }
-  .spine-row-done { height: 180px; }
-  .spine { width: 24px; height: 130px; }
+  .spine-row { height: 190px; }
+  .spine-row-done { height: 220px; }
+  .spine { width: 20px; height: 180px; }
   .spine.expanded { width: 110px; }
-  .spine-done.expanded { width: 200px; height: 170px; }
+  .spine-done.expanded { width: 200px; height: 200px; }
 }
 
 /* ── Reading Page ────────────────────────────────────── */
@@ -1638,24 +1638,24 @@ footer a:hover {
   display: flex;
   gap: 2px;
   align-items: flex-end;
-  height: 170px;
+  height: 230px;
   overflow-x: auto;
   padding-bottom: 4px;
 }
 
 .spine-row-done {
-  height: 210px;
+  height: 260px;
 }
 
 .spine {
   flex-shrink: 0;
-  width: 28px;
-  height: 160px;
+  width: 22px;
+  height: 220px;
   background: var(--spine-color);
   border-radius: 2px;
   position: relative;
   cursor: pointer;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, height 0.3s ease;
   overflow: hidden;
 }
 
@@ -1666,7 +1666,7 @@ footer a:hover {
 /* Completed spines expand wider to show review */
 .spine-done.expanded {
   width: 240px;
-  height: 200px;
+  height: 240px;
 }
 
 .spine.hidden {
