@@ -18,13 +18,13 @@ export interface Book {
 }
 
 export const GENRE_COLORS: Record<string, string> = {
-  'Sci-Fi': '#0ea5e9',
-  Fantasy: '#8b5cf6',
-  Mystery: '#a78bfa',
-  Tech: '#28c840',
-  'Non-fiction': '#f97316',
-  Fiction: '#ec4899',
-  Biography: '#06b6d4',
+  'Sci-Fi': '#6b9e8a',
+  Fantasy: '#8e7ba4',
+  Mystery: '#7a6e8a',
+  Tech: '#7aab6e',
+  'Non-fiction': '#c4935a',
+  Fiction: '#b07a8a',
+  Biography: '#6a9e9e',
 };
 
 export const ALL_GENRES = Object.keys(GENRE_COLORS);
