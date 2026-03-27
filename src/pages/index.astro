@@ -202,7 +202,11 @@ const featuredProjectUrl = featuredProject?.url ?? featuredProject?.githubUrl ??
     if (!url) return;
     const el = document.getElementById(elId);
     el?.classList.add('hero-subject-link');
-    el?.addEventListener('click', () => window.open(url, '_blank'));
+    const isInternal = url.startsWith('/') || url.startsWith('./');
+    el?.addEventListener('click', () => {
+      if (isInternal) window.location.href = url;
+      else window.open(url, '_blank');
+    });
   }
 
   function startHero() {
