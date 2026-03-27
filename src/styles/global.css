@@ -102,6 +102,12 @@ header nav {
   text-decoration: none;
 }
 
+.nav-links a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+
 .hamburger {
   cursor: pointer;
   padding: 4px;
