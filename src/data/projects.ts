@@ -67,6 +67,7 @@ export const projects: Project[] = [
     githubUrl: null,
     stack: ["Next.js", "Tailwind CSS", "TypeScript", "Discogs API"],
     favorite: true,
+    screenshot: "/screenshots/crates.png",
     browserFrame: true,
   },
   {
