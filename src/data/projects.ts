@@ -36,6 +36,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/blakemartinez/who-missed-a-call-today",
     stack: ["Next.js", "Tailwind CSS", "MLB Stats API"],
     favorite: true,
+    screenshot: "/screenshots/who-missed-a-call-today.png",
     browserFrame: true,
   },
   {
@@ -45,6 +46,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/blakemartinez/who-scored-a-goal-today",
     stack: ["Next.js", "Tailwind CSS", "football-data.org API"],
     favorite: true,
+    screenshot: "/screenshots/who-scored-a-goal-today.png",
     browserFrame: true,
   },
   {
